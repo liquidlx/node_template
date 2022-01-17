@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, Users } from "@prisma/client";
 import { UserDto } from "src/entities/dtos/UserDTO";
+import { UsersAttributes } from "src/entities/requests/users.request";
 import { PrismaService } from ".";
 
 @Injectable()
@@ -15,10 +16,15 @@ export class UsersService {
      */
     async create(data): Promise<UserDto> {
         const response = await this.prisma.users.create({
-            data
+            data,
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                updatedAt: true,
+                createdAt: true
+            },
         });
-
-        delete response?.password;
 
         return response;
     }
@@ -36,10 +42,15 @@ export class UsersService {
             where: {
                 id
             },
-            data
+            data,
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                updatedAt: true,
+                createdAt: true
+            },
         })
-        //Delete password from response
-        delete response?.password;
 
         return response;
     }
@@ -52,7 +63,7 @@ export class UsersService {
      */
     async delete(where: Prisma.UsersWhereUniqueInput,): Promise<Users> {
         return this.prisma.users.delete({
-            where
+            where,
         })
     }
 
