@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Par
 import { Users } from "@prisma/client";
 import { PatchUsersRequest, PostUsersRequest } from "../../src/entities/requests/users.request";
 import { UsersService } from "../../src/services";
-import { UserDto } from "../../src/entities/dtos/UserDTO";
-import { hashPassword } from "../../src/utils/password_hash";
+import { UserDto } from "../entities/dtos/UserDTO";
+import { hashPassword } from "../utils/password_hash";
 
 @Controller('users')
 export class UserController {
