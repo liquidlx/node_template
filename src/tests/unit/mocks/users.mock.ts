@@ -1,5 +1,6 @@
 import { Users } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { UserDto } from 'src/entities/dtos/UserDTO';
 
 export const idList = [
     '2fe037a7-d70c-4fb3-b94f-318b138cf5c6',
@@ -9,7 +10,7 @@ export const id = '2fe037a7-d70c-4fb3-b94f-318b138cf5c6';
 export const name = 'John Doe';
 export const email = 'johndoe@test.com';
 export const password = 'password_test';
-export const passwordEncrypted = 'password_test';//bcrypt.hash(password, 8);
+export const passwordEncrypted = '$2a$08$V4hmDON/rzhN5wc56xWg0OWsONW9lBedEGzddTbaeU.xmOEGIKRBK';
 export const updatedAt = new Date();
 export const createdAt = new Date();
 
@@ -22,10 +23,18 @@ export const mockUser: Users = {
     createdAt
 }
 
+export const mockUserHTTPResponse: UserDto = {
+    id,
+    name,
+    email,
+    updatedAt,
+    createdAt
+}
+
 export const mockCreateUserData = {
     name,
     email,
-    passwordEncrypted,
+    password: passwordEncrypted,
 }
 
 export const mockUserExpected = {

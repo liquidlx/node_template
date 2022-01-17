@@ -1,4 +1,3 @@
-import { Type } from "class-transformer";
 import { IsNotEmpty, IsOptional, IsString, IsUUID, ValidateNested } from "class-validator";
 
 export class UsersAttributes {

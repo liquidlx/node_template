@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
 import { Users } from "@prisma/client";
-import { PatchUsersRequest, PostUsersRequest } from "src/entities/requests/users.request";
-import { UsersService } from "src/services";
-import * as bcrypt from 'bcrypt';
-import { UserDto } from "src/entities/dtos/UserDTO";
+import { PatchUsersRequest, PostUsersRequest } from "../../src/entities/requests/users.request";
+import { UsersService } from "../../src/services";
+import { UserDto } from "../../src/entities/dtos/UserDTO";
+import { hashPassword } from "../../src/utils/password_hash";
 
 @Controller('users')
 export class UserController {
@@ -22,7 +22,7 @@ export class UserController {
     @Post()
     async create(@Body() body: PostUsersRequest): Promise<UserDto> {
         // encrypt password
-        body.password = await bcrypt.hash(body.password, 8);
+        body.password = await hashPassword(body.password);
 
         return this.usersService.create(body);
     }
@@ -34,10 +34,10 @@ export class UserController {
     }
 
     @Patch(':id')
-    async update(@Param('id') id: string, @Body() body: PatchUsersRequest): Promise<UserDto> {
+    async update(@Param('id') id: string, @Body() body: PatchUsersRequest): Promise<UserDto | null> {
         // encrypt password
         if (body.password) {
-            body.password = await bcrypt.hash(body.password, 8);
+            body.password = await hashPassword(body.password);
         }
 
         body.id = id;
