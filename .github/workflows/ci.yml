@@ -45,4 +45,4 @@ jobs:
     # Create the database
     - run: npx prisma migrate deploy
     - run: npm test
-    - run: npm test:e2e
+    - run: npm e2e
