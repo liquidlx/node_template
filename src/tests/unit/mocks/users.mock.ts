@@ -32,6 +32,7 @@ export const mockUserHTTPResponse: UserDto = {
 }
 
 export const mockCreateUserData = {
+    id,
     name,
     email,
     password: passwordEncrypted,

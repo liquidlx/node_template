@@ -103,6 +103,6 @@ describe('UsersController', () => {
     it('should hash password', async () => {
         const res = await hashPassword(password);
 
-        expect(await bcrypt.compare(password, passwordEncrypted));
+        expect(await bcrypt.compare(res, passwordEncrypted)).toBeTruthy;
     });
 })
