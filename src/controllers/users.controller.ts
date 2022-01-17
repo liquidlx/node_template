@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Patch, Post } from "@nestjs/common";
 import { Users } from "@prisma/client";
-import { PatchUsersRequest, PostUsersRequest } from "../../src/entities/requests/users.request";
-import { UsersService } from "../../src/services";
+import { PatchUsersRequest, PostUsersRequest } from "../entities/requests/users.request";
+import { UsersService } from "../services";
 import { UserDto } from "../entities/dtos/UserDTO";
 import { hashPassword } from "../utils/password_hash";
 
