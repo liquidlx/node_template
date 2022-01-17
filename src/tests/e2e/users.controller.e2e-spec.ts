@@ -35,6 +35,17 @@ describe('AppController (e2e)', () => {
         expect(response.body.email).toEqual(email);
     });
 
+    it('should update user via POST', async () => {
+        const response = await request(app.getHttpServer())
+            .patch(`/users/${id}`)
+            .send(mockCreateUserData);
+
+        expect(response.status).toEqual(200);
+        expect(response.body.id).toEqual(id);
+        expect(response.body.name).toEqual(name);
+        expect(response.body.email).toEqual(email);
+    });
+
     it('should GET user by id', async () => {
         const response = await request(app.getHttpServer())
             .get(`/users/${id}`);

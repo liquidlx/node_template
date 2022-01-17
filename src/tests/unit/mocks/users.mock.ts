@@ -35,7 +35,7 @@ export const mockCreateUserData = {
     id,
     name,
     email,
-    password: passwordEncrypted,
+    password,
 }
 
 export const mockUserExpected = {

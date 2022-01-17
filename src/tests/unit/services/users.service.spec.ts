@@ -21,6 +21,14 @@ describe('UserService', () => {
         expect(res).toStrictEqual(mockUserExpected);
     });
 
+    it('should update a user', async () => {
+        prismaMock.users.update.mockResolvedValue(mockUserDBResponse);
+
+        const res = await service.update(mockCreateUserData);
+
+        expect(res).toStrictEqual(mockUserExpected);
+    });
+
     it('should delete a user', async () => {
         prismaMock.users.delete.mockResolvedValue(mockUserDBResponse);
 
