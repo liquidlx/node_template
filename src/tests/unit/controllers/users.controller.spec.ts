@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
-import { UserController } from "../../../controllers"
-import { PrismaService, UsersService } from "../../../../src/services";
-import { id, mockAllUsersDBResponse, mockCreateUserData, mockUser, mockUserDBResponse, password, passwordEncrypted } from "../mocks/users.mock";
-import { hashPassword } from "../../../../src/utils/password_hash";
+import { UserController } from "./../../../controllers"
+import { PrismaService, UsersService } from "./../../../services";
+import { id, mockAllUsersDBResponse, mockCreateUserData, mockUser, mockUserDBResponse, password, passwordEncrypted } from "./../mocks/users.mock";
+import { hashPassword } from "./../../../../src/utils/password_hash";
 import * as bcrypt from 'bcrypt';
 
 describe('UsersController', () => {
