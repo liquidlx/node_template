@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Prisma, Users } from "@prisma/client";
+import { UserDto } from "src/entities/dtos/UserDTO";
 import { PrismaService } from ".";
 
 @Injectable()
@@ -12,16 +13,14 @@ export class UsersService {
      * @param user
      * @returns User
      */
-    async create(data): Promise<Users> {
-        const { id } = data;
-
-        return this.prisma.users.upsert({
-            where: {
-                id
-            },
-            update: {},
-            create: data,
+    async create(data): Promise<UserDto> {
+        const response = await this.prisma.users.create({
+            data
         });
+
+        delete response?.password;
+
+        return response;
     }
 
     /**
@@ -30,15 +29,19 @@ export class UsersService {
      * @param data
      * @returns User
      */
-    async update(data): Promise<Users> {
+    async update(data): Promise<UserDto> {
         const { id } = data;
 
-        return this.prisma.users.update({
+        const response = await this.prisma.users.update({
             where: {
                 id
             },
             data
         })
+        //Delete password from response
+        delete response?.password;
+
+        return response;
     }
 
     /**
@@ -59,9 +62,16 @@ export class UsersService {
      * @param where
      * @returns User
      */
-    async findOne(where: Prisma.UsersWhereUniqueInput): Promise<Users | null> {
+    async findOne(where: Prisma.UsersWhereUniqueInput): Promise<UserDto | null> {
         return this.prisma.users.findUnique({
-            where
+            where,
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                updatedAt: true,
+                createdAt: true
+            },
         })
     }
 
@@ -71,9 +81,16 @@ export class UsersService {
      * @param where
      * @returns Users Array
      */
-    async findAll(where: Prisma.UsersWhereInput): Promise<Users[]> {
+    async findAll(where: Prisma.UsersWhereInput): Promise<UserDto[]> {
         return this.prisma.users.findMany({
-            where
+            where,
+            select: {
+                id: true,
+                email: true,
+                name: true,
+                updatedAt: true,
+                createdAt: true
+            },
         })
     }
 }
