@@ -42,7 +42,6 @@ jobs:
         node-version: "14.0.0"
         cache: 'npm'
     - run: npm ci
-    - run: npm run build
     # Create the database
     - run: npx prisma migrate deploy
     - run: npm test
